@@ -1,0 +1,12 @@
+--------------------------------------------------------------------------------
+| 16:38:50.928 | ERROR | SMSCentral.Services.DataService -> RefreshOperatorsForReceiversAsync -> Get operator for phone number: 0756039583
+
+The request message was already sent. Cannot send the same request message multiple times.
+--------------------------------------------------------------------------------
+| 16:38:51.151 | ERROR | SMSCentral.Services.DataService -> RefreshOperatorsForReceiversAsync -> Get operator for phone number: 0732176165
+
+The request message was already sent. Cannot send the same request message multiple times.
+--------------------------------------------------------------------------------
+| 16:39:15.157 | ERROR | SMSCentral.Services.DataService -> RefreshOperatorsForReceiversAsync -> Get operator for phone number: 0756039583
+
+The request message was already sent. Cannot send the same request message multiple times.

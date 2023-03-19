@@ -1,0 +1,32 @@
+--------------------------------------------------------------------------------
+| 19:34:51.148 | ERROR | SMSCentral.Services.DataService -> RefreshOperatorForReceiver -> Phone number: 07321761654
+
+Index was outside the bounds of the array.
+--------------------------------------------------------------------------------
+| 19:51:45.144 | ERROR | SMSCentral.Services.DataService -> RefreshOperatorForReceiver -> Phone number: 43245
+
+Index was outside the bounds of the array.
+--------------------------------------------------------------------------------
+| 19:59:55.542 | ERROR | SMSCentral.Services.DataService -> RefreshOperatorForReceiver -> Phone number: 43245
+
+Index was outside the bounds of the array.
+--------------------------------------------------------------------------------
+| 23:03:08.482 | ERROR | SMSCentral.Models.Modem -> SendSMS
+
+Port not open.
+--------------------------------------------------------------------------------
+| 23:07:31.230 | ERROR | SMSCentral.Models.Modem -> SendSMS
+
+No data received from phone after waiting for 25000 ms.
+--------------------------------------------------------------------------------
+| 23:08:39.740 | ERROR | SMSCentral.Models.Modem -> SendSMS
+
+Port already open.
+--------------------------------------------------------------------------------
+| 23:18:59.840 | ERROR | SMSCentral.Models.Modem -> SendSMS
+
+No data received from phone after waiting for 25016 ms.
+--------------------------------------------------------------------------------
+| 23:24:03.771 | ERROR | SMSCentral.Models.Modem -> SendSMS
+
+No data received from phone after waiting for 30016 ms.

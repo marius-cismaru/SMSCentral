@@ -1,0 +1,16 @@
+[
+    {
+        "PhoneNumber": "0724303212",
+        "Name": "Marius Cismaru",
+        "OperatorId": null,
+        "DateRefreshOperator":  null,
+        "DateSendSMS": null
+    },
+    {
+        "PhoneNumber": "0756039583",
+        "Name": "Alin Popa",
+        "OperatorId": 1,
+        "DateRefreshOperator": "2023-03-01 12:05:34",
+        "DateSendSMS": "2023-03-02 19:05:34"
+    }
+]

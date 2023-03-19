@@ -1,0 +1,22 @@
+[
+    {
+        "Id": 1,
+        "Name": "Orange",
+        "PortabilitateRoName": "ORANGE ROMANIA"
+    },
+    {
+        "Id": 2,
+        "Name": "Digi",
+        "PortabilitateRoName": "RCS & RDS"
+    },
+    {
+        "Id": 3,
+        "Name": "Vodafone",
+        "PortabilitateRoName": "VODAFONE ROMANIA"
+    },
+    {
+        "Id": 4,
+        "Name": "Telekom",
+        "PortabilitateRoName": "TELEKOM ROMANIA MOBILE (COSMOTE)"
+    }
+]

@@ -1,0 +1,310 @@
+﻿<Window x:Class="SMSCentral.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SMSCentral"
+        xmlns:control="http://filterdatagrid.control.com/2021"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="820" Width="1360" Background="White" FontSize="16"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="186" />
+            <RowDefinition Height="206" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="400" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Margin="0,0,4,0">
+            <DockPanel DockPanel.Dock="Top" Height="42" Background="DarkViolet">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
+                    <Button
+                    Margin="10,6,6,6"
+                    Padding="4"
+                    MinWidth="100"
+                    Content="Import"
+                    ToolTip="Import receivers from file"
+                    Command="{Binding ImportReceiversCommand}" />
+                    <Button
+                    Margin="6"
+                    Padding="4"
+                    MinWidth="100"
+                    IsEnabled="{Binding ElementName=FilterDataGrid, Path=SelectedItems.Count}"    
+                    Content="Delete"     
+                    ToolTip="Delete selected receivers"
+                    CommandParameter="{Binding ElementName=FilterDataGrid, Path=SelectedItems}"
+                    Command="{Binding DeleteReceiversCommand}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                    <Button
+                    Margin="6,6,10,6"
+                    Padding="4"
+                    MinWidth="100"
+                    IsEnabled="{Binding ElementName=FilterDataGrid, Path=SelectedItems.Count}"    
+                    Content="Refresh operators"     
+                    ToolTip="Refresh operators for selected receivers"
+                    CommandParameter="{Binding ElementName=FilterDataGrid, Path=SelectedItems}"
+                    Command="{Binding RefreshOperatorsReceiversCommand}" />
+                </StackPanel>
+            </DockPanel>
+            <DockPanel Height="42" DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="6,0,10,0">
+                    <Label
+                    VerticalAlignment="Center"
+                    Content="Search by name, group or phone number"
+                    FontWeight="Bold" />
+                    <TextBox
+                    MinWidth="250"
+                    VerticalAlignment="Center"
+                    Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                    <Button
+                    Margin="6,6,10,6"
+                    Padding="4" 
+                    Content="Reset filters"
+                    Command="{Binding ResetFiltersReceiversCommand}" />
+                </StackPanel>
+            </DockPanel>
+            <control:FilterDataGrid
+                x:Name="FilterDataGrid"
+                AutoGenerateColumns="False"
+                Margin="10"
+                DateFormatString="d"
+                FilterLanguage="English"
+                ItemsSource="{Binding Receivers, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding ReceiverSelected, Mode=OneWayToSource}"
+                SelectionMode="Extended"
+                SelectionUnit="FullRow"
+                ShowElapsedTime="True"
+                ShowRowsCount="True"
+                ShowStatusBar="True"
+                Style="{StaticResource FilterDatagridStyle}">
+                <control:FilterDataGrid.Columns>
+
+                    <control:DataGridTemplateColumn
+                        FieldName="PhoneNumber"
+                        Header="Phone number"
+                        Width="auto"
+                        IsColumnFiltered="True"
+                        SortMemberPath="PhoneNumber">
+                        <control:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="local:Receiver">
+                                <TextBlock Padding="2,0" Text="{Binding PhoneNumber}" />
+                            </DataTemplate>
+                        </control:DataGridTemplateColumn.CellTemplate>
+                    </control:DataGridTemplateColumn>
+
+                    <control:DataGridTextColumn
+                        Binding="{Binding Name}"
+                        Header="Name"
+                        Width="auto"
+                        IsColumnFiltered="True" />
+
+                    <control:DataGridTextColumn
+                        Binding="{Binding Group}"
+                        Header="Group"
+                        Width="auto"
+                        IsColumnFiltered="True" />
+
+                    <control:DataGridTextColumn
+                        Binding="{Binding OperatorDescription}"
+                        Header="Operator"
+                        Width="auto"
+                        IsColumnFiltered="True" />
+
+                    <control:DataGridTemplateColumn
+                        FieldName="DateRefreshOperator"
+                        Header="Date refresh operator"
+                        Width="auto"
+                        IsColumnFiltered="True"
+                        SortMemberPath="DateRefreshOperator">
+                        <control:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="local:Receiver">
+                                <TextBlock Padding="2,0" Text="{Binding DateRefreshOperatorDescription}" />
+                            </DataTemplate>
+                        </control:DataGridTemplateColumn.CellTemplate>
+                    </control:DataGridTemplateColumn>
+
+                    <control:DataGridTemplateColumn
+                        FieldName="DateSendSMS"
+                        Header="Date send last SMS"
+                        Width="auto"
+                        IsColumnFiltered="True"
+                        SortMemberPath="DateSendSMS">
+                        <control:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="local:Receiver">
+                                <TextBlock Padding="2,0" Text="{Binding DateSendSMSDescription}" />
+                            </DataTemplate>
+                        </control:DataGridTemplateColumn.CellTemplate>
+                    </control:DataGridTemplateColumn>
+
+                </control:FilterDataGrid.Columns>
+            </control:FilterDataGrid>
+        </DockPanel>
+        <GridSplitter
+            Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch" 
+                Grid.RowSpan="3"
+            Background="Gray"
+                Width="4"/>
+        <DockPanel Grid.Row="0" Grid.Column="1">
+            <DockPanel DockPanel.Dock="Top" Height="42" Background="DarkViolet">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
+                    <Label
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="Receiver"
+                        Foreground="White"
+                    FontWeight="Bold" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                    <Button
+                    Margin="6,6,10,6"
+                    Padding="4"
+                    MinWidth="100"
+                    Content="Save"
+                    ToolTip="Save receiver" 
+                    Command="{Binding SaveReceiverCommand}" />
+                </StackPanel>
+            </DockPanel>
+            <StackPanel Orientation="Vertical" Margin="0,6,0,0">
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Left"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Right"
+                    Content="Phone number"
+                    Width="120" />
+                    <TextBox
+                        Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding ReceiverUpdated.PhoneNumber}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Left"
+                    VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
+                    Content="Name"
+                    Width="120" />
+                    <TextBox
+                        Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding ReceiverUpdated.Name}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Left"
+                    VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
+                    Content="Group"
+                    Width="120" />
+                    <TextBox
+                        Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding ReceiverUpdated.Group}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Left"
+                    VerticalAlignment="Center"
+                        HorizontalContentAlignment="Right"
+                    Content="Operator"
+                    Width="120" />
+                    <ComboBox
+                        Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                        ItemsSource="{Binding Operators, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding ReceiverUpdated.Operator}" />
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="1">
+            <DockPanel DockPanel.Dock="Top" Height="42" Background="DarkViolet">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
+                    <Label
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="SMS"
+                        Foreground="White"
+                    FontWeight="Bold" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                    <Button
+                    Margin="6,6,10,6"
+                    Padding="4"
+                    MinWidth="100"
+                    IsEnabled="{Binding ElementName=FilterDataGrid, Path=SelectedItems.Count}"                         
+                    Content="Send"
+                    ToolTip="Send SMS to selected receivers"
+                        CommandParameter="{Binding ElementName=FilterDataGrid, Path=SelectedItems}"
+                    Command="{Binding SendSMSReceiversCommand}" />
+                </StackPanel>
+            </DockPanel>
+            <StackPanel Orientation="Vertical" Margin="10">
+                <TextBox
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto"
+                    Text="{Binding SMSMessage, UpdateSourceTrigger=PropertyChanged}" Height="144" />
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.Column="1">
+            <DockPanel DockPanel.Dock="Top" Height="42" Background="DarkViolet">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
+                    <Label
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="Modems"
+                        Foreground="White"
+                    FontWeight="Bold" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                    <Button
+                    Margin="6,6,10,6"
+                    Padding="4"
+                    MinWidth="100"
+                    Content="Refresh"
+                    ToolTip="Refresh modems"
+                    Command="{Binding RefreshModemsCommand}" />
+                </StackPanel>
+            </DockPanel>
+            <DataGrid SelectionMode="Single" AutoGenerateColumns="False" ItemsSource="{Binding Modems, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="false" Margin="10" >
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}" Value="Failed">
+                                <Setter Property="Background" Value="#ff8566">
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="OK">
+                                <Setter Property="Background" Value="#c2f0c2">
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="N/A">
+                                <Setter Property="Background" Value="LightYellow">
+                                </Setter>
+                            </DataTrigger>                            
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="auto" Header="Status" Binding="{Binding Status}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" Header="Operator" Binding="{Binding OperatorDescription}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" Header="Number" Binding="{Binding PhoneNumber}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" Header="Priority" Binding="{Binding Priority}"></DataGridTextColumn>                    
+                    <DataGridTextColumn Width="auto" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" Header="Com Port" Binding="{Binding COMPort}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>

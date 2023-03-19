@@ -1,0 +1,20 @@
+[
+    {
+        "Name": "Wireless Modem",
+        "PhoneNumber": "0752330912",
+        "OperatorId": 1,
+        "Priority": 10
+    },
+    {
+        "Name": "ZTE Proprietary USB Modem",
+        "PhoneNumber": "0775258573",
+        "OperatorId": 2,
+        "Priority": 20
+    },
+    {
+        "Name": "HUAWEI Mobile Connect - 3G Modem",
+        "PhoneNumber": "0734741473",
+        "OperatorId": 3,
+        "Priority": 30
+    }
+]
